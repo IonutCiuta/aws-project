@@ -12,6 +12,8 @@ const
 
 var app = express();
 app.use(bodyParser.json());
+app.use('/', express.static(path.join(__dirname, '../aws-web')));
+app.use('/bower_components', express.static(path.join(__dirname, '../bower_components')));
 
 app.get('/', function(req, res) {
 	res.sendFile(path.join(__dirname, '../aws-web/index.html'));	
@@ -23,4 +25,6 @@ var server = app.listen(process.env.PORT || 3000, function() {
     	server.address().port,
     	moment().format(DATE_FORMAT)
     );
+
+    console.log(path.join(__dirname, '../aws-web/'));
 });

@@ -1,0 +1,17 @@
+{
+  "name": "aws-web",
+  "description": "AWS course project",
+  "main": "app.js",
+  "authors": [
+    "Ionut Ciuta"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/IonutCiuta/aws-project",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "angular-bootstrap": "^2.5.0",
+    "html5-boilerplate": "^5.3.0"
+  }
+}
