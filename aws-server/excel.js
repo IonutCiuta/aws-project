@@ -5,7 +5,7 @@ const
 module.exports.parseXlsx = function(file, cb) {
 	xlsxj({
 		input: file, 
-		output:  file + 'out.json'
+		output:  file.slice(0, -5) + '.json'
 	}, function(err, result) {
 		if(err) {
 			cb(err, null);
