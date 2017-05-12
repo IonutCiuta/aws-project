@@ -2,7 +2,7 @@ const
 	path    	= require("path");
 	express 	= require('express'),
 	moment 		= require('moment'),
-	mongoose 	= require('mongoose'),
+	mongo 		= require('mongodb'),
 	log 		= require('winston'),
 	bodyParser 	= require('body-parser'),
 	excel		= require('./excel.js'),
@@ -23,14 +23,26 @@ app.get('/', function(req, res) {
 	res.sendFile(path.join(__dirname, '../aws-web/index.html'));	
 });
 
-var server = app.listen(process.env.PORT || 3000, function() {
-	log.info(
-    	'Application server started on port %s @ %s', 
-    	server.address().port,
-    	moment().format(DATE_FORMAT)
-    );
 
+var db;
+mongo.MongoClient.connect('mongodb://localhost:27017/aws', function(err, database) {
+	if(err) log.error('Unable to open database.');
+	var server = app.listen(process.env.PORT || 3000, function() {
+		log.info(
+	    	'Application server started on port %s @ %s', 
+	    	server.address().port,
+	    	moment().format(DATE_FORMAT)
+	    );
 
+	    database.collection('privateSector2013').find({'LOCALITATE' : 'Zlatna'}).toArray(function (err, result) {
+	    if (err) throw err
+
+	    console.log(result)
+	  })
+	});
+});
+
+var initPrivateSector = function() {
 	fs.readdir(PRIVATE_SECTOR_DATA, (err, files) => {
 		if(err) {
 			log.error(JSON.stringify(err));
@@ -55,4 +67,4 @@ var server = app.listen(process.env.PORT || 3000, function() {
 			}
 		})
 	});
-});
+}
