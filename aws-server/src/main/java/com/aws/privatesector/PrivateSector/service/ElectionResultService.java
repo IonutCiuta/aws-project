@@ -25,7 +25,7 @@ public class ElectionResultService {
         List<ElectionResult> results;
 
         if(!location.isEmpty() && !county.isEmpty()) {
-            results = resultRepository.findByLocationIgnoreCaseAndCountyIgnoreCase(county, location);
+            results = resultRepository.findByLocationIgnoreCaseAndCountyIgnoreCase(location, county);
         } else if(!location.isEmpty()){
             results = resultRepository.findByLocationIgnoreCase(location);
         } else if(!county.isEmpty()) {

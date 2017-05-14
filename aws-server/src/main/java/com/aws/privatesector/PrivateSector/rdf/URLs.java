@@ -8,11 +8,11 @@ public class URLs {
     public static final String LOCATION_URL = OD_URL + "location/";
     public static final String COUNTY_URL = OD_URL + "county/";
     public static final String COMPANY_URL = OD_URL + "company/";
-    public static final String COMPANY_STATUS_URL = OD_URL + "company_status/";
+    public static final String COMPANY2013_URL = COMPANY_URL + "2013/";
+    public static final String COMPANY2014_URL = COMPANY_URL + "2014/";
+    public static final String COMPANY2015_URL = COMPANY_URL + "2015/";
+    public static final String COMPANY2016_URL = COMPANY_URL + "2016/";
     public static final String PARTY_URL = OD_URL + "party/";
     public static final String ELECTION_URL = OD_URL + "election/";
     public static final String ELECTION_RESULT_URL = OD_URL + "election_result/";
-
-
-
 }

@@ -12,9 +12,9 @@ const
 	DATE_FORMAT = "DD.MM.YY HH:mm:ss";
 
 const
-	PRIVATE_SECTOR_DATA = '../aws-project/aws-db/excel/private_sector_data/',
+	PRIVATE_SECTOR_DATA = '../aws-project/aws-db/excel/company_data/',
 	ELECTION_DATA = '../aws-project/aws-db/excel/election_data/',
-	PRIVATE_SECTOR_OUT = 'private_sector_data',
+	PRIVATE_SECTOR_OUT = 'company_data',
 	ELECTION_OUT = 'election';
 
 var app = express();
@@ -38,7 +38,8 @@ mongo.MongoClient.connect('mongodb://localhost:27017/aws', function(err, databas
 	    	moment().format(DATE_FORMAT)
 	    );
 
-	    initElection();
+	    //initElection();
+	    initPrivateSector();
 	})
 });
 
