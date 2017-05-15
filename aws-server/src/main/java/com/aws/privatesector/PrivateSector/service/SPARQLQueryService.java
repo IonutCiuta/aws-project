@@ -30,52 +30,46 @@ public class SPARQLQueryService {
     }
 
     public void query() {
-        /*ParameterizedSparqlString queryString = new ParameterizedSparqlString();
-        queryString.setNsPrefix("ps", "http://od.cs.pub.ro/privatesector/election_result");
-        queryString.append("SELECT ?result ?count");
-        queryString.append("{");
-        queryString.append("?result ps:forParty <http://od.cs.pub.ro/privatesector/party/PSD> .");
-        queryString.append("?result ps:totalVotes ?count");
-        queryString.append("}");
-        Query query = queryString.asQuery();*/
+        System.out.println(request(queryTopParties, null, null, null));
+        System.out.println(request(queryCompaniesByYear, null, null, null));
+        System.out.println(request(queryCompaniesByYear, null, null, null));
+        System.out.println(request(queryCompaniesByYear, null, null, null));
+        System.out.println(request(queryCompaniesByYear, null, null, null));
+        System.out.println(request(queryCompaniesByYear, null, null, null));
+    }
 
-        /*String query = "PREFIX ps: <http://od.cs.pub.ro/privatesector/election_result/> "
-                        + "SELECT ?result ?count "
-                        + "WHERE {"
-                        + "  ?result ps:forParty <http://od.cs.pub.ro/privatesector/party/PSD> . "
-                        + "  ?result ps:totalVotes ?count "
-                        + "} LIMIT 10";*/
 
-        String query =
-                  "PREFIX er:  <http://od.cs.pub.ro/privatesector/election_result/> "
-                + "PREFIX com: <http://od.cs.pub.ro/privatesector/company/> "
-                + "PREFIX ps:  <http://od.cs.pub.ro/privatesector/> "
-                + "SELECT * WHERE { "
-                + "{"
-                + " SELECT ?result ?party ?votes ?name"
-                + " WHERE {"
-                + "     ?result com:locatedIn <http://od.cs.pub.ro/privatesector/location/ALBA_Zlatna> . "
-                + "     ?result er:forParty ?party . "
-                + "     ?party ps:name ?name ."
-                + "     ?result er:totalVotes ?votes ."
-                + " } ORDER BY DESC(xsd:integer(?votes)) LIMIT 1"
-                + "} UNION {"
-                + " SELECT (COUNT(*) AS ?count)"
-                + " WHERE {"
-                + "      ?company ps:location ?location"
-                + " } GROUP BY ?location"
-                + "}"
-                + "}";
-
+    private String request(String query, String location, String county, String year) {
         HttpEntity<String> httpEntity = new HttpEntity<>(query, httpHeaders);
-
         ResponseEntity<String> result = template.exchange(
                 SPARQL_ENDPOINT,
                 HttpMethod.POST,
                 httpEntity,
                 String.class
         );
-        System.out.println(result.getBody());
+        return result.getBody();
     }
 
+    String queryTopParties =
+                   "PREFIX er:  <http://od.cs.pub.ro/privatesector/election_result/> "
+                 + "PREFIX com: <http://od.cs.pub.ro/privatesector/company/> "
+                 + "PREFIX ps:  <http://od.cs.pub.ro/privatesector/> "
+                 + " SELECT ?result ?party ?votes ?name"
+                 + " WHERE {"
+                 + "     ?result com:locatedIn <http://od.cs.pub.ro/privatesector/location/ALBA_Zlatna> . "
+                 + "     ?result er:forParty ?party . "
+                 + "     ?party ps:name ?name ."
+                 + "     ?result er:totalVotes ?votes ."
+                 + " } ORDER BY DESC(xsd:integer(?votes)) LIMIT 3";
+
+    String queryCompaniesByYear =
+              "PREFIX e:  <http://od.cs.pub.ro/privatesector/election/> "
+            + "PREFIX ps:  <http://od.cs.pub.ro/privatesector/> "
+            + "PREFIX com: <http://od.cs.pub.ro/privatesector/company/> "
+            + "SELECT (COUNT(*) AS ?count)"
+            + "WHERE {"
+            + "      ?company com:locatedIn <http://od.cs.pub.ro/privatesector/location/ALBA_Zlatna> . "
+            + "      ?company ps:location ?location ."
+            + "      ?company e:year \"2014\" . "
+            + "} GROUP BY ?location";
 }

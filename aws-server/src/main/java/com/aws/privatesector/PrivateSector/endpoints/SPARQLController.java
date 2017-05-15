@@ -22,7 +22,7 @@ public class SPARQLController {
     @GetMapping("aws/sparql/test")
     public @ResponseBody Response test(@RequestParam("location") String location,
                                      @RequestParam("county") String county) {
-        //sparqlQueryService.query();
+        sparqlQueryService.query();
         log.info("SPARQL Query with: {}, {}", location, county);
         return new Response("Success");
     }

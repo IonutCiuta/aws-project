@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 /**
  * ionutciuta24@gmail.com on 13.05.2017.
  */
-@Document(collection = "privateSector2013")
 public abstract class Company {
     @Id
     protected String id;
