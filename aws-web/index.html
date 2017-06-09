@@ -15,7 +15,7 @@
 </head>
 <body>
   <div ng-app="myApp" ng-controller="homeCtrl">
-  <h1>AWS Project</h1>
+  <h1>PrivateSector</h1>
   <tr>
     <td>
         <input type="text" placeholder="Location" ng-model="location">
@@ -43,7 +43,8 @@
           method: "GET",
           url: "http://localhost:8080/aws/sparql/test?location=" + $scope.location + "&county=" + $scope.county
         }).then(function onSuccess(response) {
-          $scope.result = response.data.message;
+          $scope.result = "Success";
+          console.log(response.data);
         });
       }  
     });
